@@ -1,0 +1,44 @@
+version: "3.9"
+
+services:
+    mariadbinventarios:
+        container_name: mariadbinventarios
+        build: ./mariadb
+        volumes:
+            - ./mariadb/db:/var/lib/mysql
+        restart: always
+        env_file:
+            - .env
+        environment:
+            MYSQL_DATABASE: inventario_base
+        command: 
+            - "--default-authentication-plugin=mysql_native_password"
+        networks:
+            - inventarios-network
+        expose:
+            - "3306"
+        ports:
+            - 8063:3306
+    inventarios:
+        container_name: inventarios
+        build: ./inventarios
+        depends_on:
+            - mariadbinventarios
+        volumes:
+            - ./inventarios:/app
+        restart: always
+        command: python manage.py runserver 0.0.0.0:8000
+        networks:
+            - inventarios-network
+        ports:
+            - 8061:8000
+            - 8062:443
+        expose:
+            - 8000
+            - 443
+networks:
+    inventarios-network:
+        driver: bridge
+volumes:
+    mariadbinventarios:
+    inventarios:

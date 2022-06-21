@@ -1,0 +1,12 @@
+Django==3.2.9
+django-clear-cache==0.3
+django-clearcache==1.2.1
+mysqlclient==2.1.0
+Pillow==9.0.1
+pytz==2021.3
+requests==2.26.0
+sqlparse==0.4.2
+wheel==0.37.1
+xhtml2pdf==0.2.5
+requests==2.26.0
+XlsxWriter==3.0.2
